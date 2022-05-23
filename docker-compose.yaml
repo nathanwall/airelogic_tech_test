@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  airelogic_tech_test:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 8080:8080
+    command: uvicorn api:app --reload --host 0.0.0.0 --port 8080 --log-level=warning
