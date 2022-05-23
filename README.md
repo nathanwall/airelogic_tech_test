@@ -18,17 +18,19 @@ From the root folder of the project: </br>
 ## Starting the API
 
 ### Manual
+From the root folder of the project: </br>
 `uvicorn api:app --host 0.0.0.0 --port 8080`<br/>
 
 ### Docker
 `docker run -it --rm -p 8080:8080 -e SERVER_HOST=0.0.0.0 -e SERVER_PORT=8080 --name airelogic_tech_test airelogic_tech_test:latest`<br/>
 
 ### docker-compose
+From the root folder of the project: </br>
 `docker-compose -f docker-compose.yaml up`<br/>
 
 ## Calling the API
 
-### OpenAPI
+### OpenAPI (Web Interface)
 Once the application has been started: 
 - From a browser navigate to `localhost:8080/docs`
 - Select the `/average_lyrics` drop down menu

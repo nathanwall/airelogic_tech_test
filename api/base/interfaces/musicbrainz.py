@@ -19,9 +19,12 @@ class MusicBrainz():
         """ Get the artist info """
         logging.info(f"Start get_artist({artist})")
         artist = urllib.parse.quote(artist)
+
+        # Make the request
         qry = f"{self.url}/artist/?query=artist:{artist}&limit=1"
         request_result = requests.get(qry, headers=self.headers)
 
+        # Parse the results
         try:
             results = GetArtist.parse_obj(request_result.json()).artists[0]
         except IndexError as exception:
@@ -35,6 +38,7 @@ class MusicBrainz():
     async def get_releases(self, artist_id: str) -> GetReleases:
         """ Get the releases info for the artist """
         logging.info(f"Start get_releases({artist_id})")
+
         # Only looking for official albums and EPs
         qry = f"{self.url}/release/?artist={artist_id}&type=album|ep&status=official"
         request_result = requests.get(qry, headers=self.headers)
@@ -55,6 +59,8 @@ class MusicBrainz():
             sleep(1)
             qry = f"{self.url}/release/{release.id}?inc=recordings"
             request_result = requests.get(qry, headers=self.headers)
+
+            # Parse the results
             result = Media.parse_obj(request_result.json())
             tracks = result.media[0].tracks
             # Build up a list of individual tracks and filter out duplicates
